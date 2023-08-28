@@ -38,7 +38,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Adikteev ${{ inputs.component }} deployment *${{ inputs.region }}* :fire:*"
+                  "text": "*Adikteev ${{ inputs.component }} deployment ${{ inputs.region }} :fire:*"
                 }
               },
               {

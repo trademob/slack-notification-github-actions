@@ -7,7 +7,7 @@ on:
       region:
         required: false
         type: string
-      environnement:
+      environment:
         required: true
         type: string
       channel-id:
@@ -22,7 +22,7 @@ on:
 
 jobs:
   slack_notification:
-    name: slack not ification
+    name: slack notification
     runs-on: self-hosted
     steps:
       - name: Post to Slack channel
@@ -58,7 +58,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Environment:*\n${{ inputs.environnement }}\n*From:*\n${{ github.actor }}"
+                    "text": "*Environment:*\n${{ inputs.environment }}\n*From:*\n${{ github.actor }}"
                   },
                   {
                     "type": "mrkdwn",

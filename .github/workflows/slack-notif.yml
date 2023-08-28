@@ -1,0 +1,66 @@
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
+      region:
+        required: false
+        type: string
+      environnement:
+        required: true
+        type: string
+      channel-id:
+        required: true
+        type: string
+
+jobs:
+  slack_notification:
+    name: deploy
+    runs-on: self-hosted
+    steps:
+      - name: Post to Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: ${{ inputs.channel-id }}
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Adikteev ${{ inputs.component }} deployment <b>${{ inputs.region }}</b> :fire:*"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Action:*\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}>"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Release:*\n<https://github.com/${{ github.repository }}/releases/tag/${{ inputs.tag }}>"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Version:*\n${{ inputs.tag }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Environment:*\n${{ inputs.environnement }}\n*From:*\n${{ github.actor }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*deploy:* ${{needs.deploy.outputs.status}}"
+                  }
+                ]
+              }
+            ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_DEPLOY_NOTIF_TOKEN }}

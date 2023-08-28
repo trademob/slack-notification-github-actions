@@ -16,9 +16,13 @@ on:
       tag:
         required: true
         type: string
+    secrets:
+      botToken:
+        required: true
+
 jobs:
   slack_notification:
-    name: deploy
+    name: slack not ification
     runs-on: self-hosted
     steps:
       - name: Post to Slack channel
@@ -65,4 +69,4 @@ jobs:
             ]
             }
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_DEPLOY_NOTIF_TOKEN }}
+          SLACK_BOT_TOKEN: ${{ secrets.botToken }}

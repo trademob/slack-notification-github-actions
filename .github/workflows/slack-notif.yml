@@ -16,6 +16,9 @@ on:
       tag:
         required: true
         type: string
+      status:
+        required: true
+        type: string
     secrets:
       botToken:
         required: true
@@ -62,7 +65,7 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*deploy:* ${{needs.deploy.outputs.status}}"
+                    "text": "*deploy:* ${{ inputs.status }}"
                   }
                 ]
               }

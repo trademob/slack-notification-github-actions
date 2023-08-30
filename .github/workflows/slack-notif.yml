@@ -19,6 +19,9 @@ on:
       status:
         required: true
         type: string
+      comment:
+        required: false
+        type: string
     secrets:
       botToken:
         required: true
@@ -66,6 +69,10 @@ jobs:
                   {
                     "type": "mrkdwn",
                     "text": "*deploy:* ${{ inputs.status }}"
+                  }
+                  {
+                    "type": "mrkdwn",
+                    "text": "${{ inputs.comment }}"
                   }
                 ]
               }

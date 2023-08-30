@@ -69,7 +69,7 @@ jobs:
                   {
                     "type": "mrkdwn",
                     "text": "*deploy:* ${{ inputs.status }}"
-                  }
+                  },
                   {
                     "type": "mrkdwn",
                     "text": "${{ inputs.comment }}"
